@@ -27,3 +27,11 @@
 - A 404 means Not Found. I broke the data file on purpose and the page still showed a clear message.
 - Browsers block fetch from files on my disk, so I use a local server (npx serve).
 - A wrong property name like innterHTML gives no error, so I must read my code slowly.
+## Phase 2: Design
+- Figma variables are design tokens. They match CSS custom properties, so design and code use the same colours.
+- A component is made once and reused as instances. Change the master and every copy updates.
+- Auto layout in Figma works like flexbox in CSS.
+- Design the loading, empty, error and waking-up states, not only the happy screen.
+- A feasibility review finds problems in a design before anyone writes code.
+- Colour must not be the only way to show meaning (hot and cold bars need labels or a table).
+- The free server sleeps, so the app needs a "waking up" message.
