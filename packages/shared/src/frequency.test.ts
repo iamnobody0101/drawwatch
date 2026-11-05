@@ -7,7 +7,7 @@ function makeDraw(id: string, numbers: number[], bonus = 9): Draw {
 }
 
 describe("calculateFrequency", () => {
-      const draws = [makeDraw("a", [1, 2, 3]), makeDraw("b", [2, 3, 4])];
+    const draws = [makeDraw("a", [1, 2, 3]), makeDraw("b", [2, 3, 4])];
 
     it("counts how often each number was drawn", () => {
         const result = calculateFrequency(draws, 5);
@@ -18,6 +18,15 @@ describe("calculateFrequency", () => {
             { number: 3, count: 2},
             { number: 4, count: 1},
             { number: 5, count: 0},
+        ]);
+    });
+
+    it("ignores numbers bigger than maxNumber", () => {
+        const result = calculateFrequency([makeDraw("a", [1, 99])], 3);
+        expect(result.counts).toEqual([
+            { number: 1, count: 1},
+            { number: 2, count: 0},
+            { number: 3, count: 0},
         ]);
     });
 
