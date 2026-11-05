@@ -22,3 +22,8 @@
 - JavaScript is case-sensitive. A small typo like getElementbyId breaks the code.
 - When something breaks, I open the Console (F12), read the error and check the line number.
 - Names must match exactly (draw is not draws). Careful names prevent many bugs.
+- fetch asks a server for data. await waits for the answer, so the function must be async.
+- try and catch let me show a friendly message when loading fails.
+- A 404 means Not Found. I broke the data file on purpose and the page still showed a clear message.
+- Browsers block fetch from files on my disk, so I use a local server (npx serve).
+- A wrong property name like innterHTML gives no error, so I must read my code slowly.
