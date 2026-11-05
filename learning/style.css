@@ -1,0 +1,54 @@
+:root {
+    --bg: #f8fafc;
+    --text: #0f172a;
+    --ball: #1d4ed8;
+    --ball-text: #ffffff;
+    --space: 1rem;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+header, main, footer {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: var(--space);
+}
+
+ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--ball);
+    color: var(--ball-text);
+    font-weight: 700;
+}
+
+footer {
+    font-size: 0.875rem;
+    color: #475569;
+}
+
+@media (min-width: 40rem) {
+    h1 { font-size: 2.5rem; }
+    li { width: 3.5rem; height: 3.5rem; }
+}
