@@ -1,5 +1,5 @@
 [
-    { "game": "Lotto 6/49", "date": "2026-01-07", "numbers": [3, 12, 19, 27, 33, 41], "bonus": 8 },
-    { "game": "Lotto Max", "date": "2026-01-09", "numbers": [2, 9, 17, 24, 31, 38, 45], "bonus": 11 },
-    { "game": "Lotto 6/49", "date": "2026-01-03", "numbers": [5, 14, 22, 28, 36, 47], "bonus": 19 }
+  { "game": "Lotto 6/49", "date": "2026-01-07", "numbers": [3, 12, 19, 27, 33, 41], "bonus": 8 },
+  { "game": "Lotto Max", "date": "2026-01-09", "numbers": [2, 9, 17, 24, 31, 38, 45], "bonus": 11 },
+  { "game": "Lotto 6/49", "date": "2026-01-03", "numbers": [5, 14, 22, 28, 36, 47], "bonus": 19 }
 ]
