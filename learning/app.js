@@ -1,11 +1,6 @@
-const draws = [
-    { game: "Lotto 6/49", date: "2026-01-07", numbers: [3, 12, 19, 27, 33, 41], bonus: 8 },
-    { game: "Lotto Max", date: "2026-01-09", numbers: [2, 9, 17, 24, 31, 38, 45], bonus: 11 },
-    { game: "Lotto 6/49", date: "2026-01-03", numbers: [5, 14, 22, 28, 36, 47], bonus: 19},
-];
-
-const select = document.getElementById("game");
-const container = document.getElementById("draws");
+const select = document.getElementById("game")
+const container = document.getElementById("draws")
+let draws = [];
 
 function render() {
     const chosen = select.value;
@@ -22,5 +17,20 @@ function render() {
     ).join("");
 }
 
+async function loadDraws() {
+    container.textContent = "Loading draws...";
+    try {
+        const response = await fetch("draws.json");
+        if (!response.ok) {
+            throw new Error("Server answered " + response.status);
+        }
+        draws = await response.json();
+        render();
+    } catch (error) {
+        container.textContent = "Sorry, the draws could not be loaded. Please try again later.";
+        console.error(error);
+    }
+}
+
 select.addEventListener("change", render);
-render();
+loadDraws();
