@@ -1,6 +1,7 @@
 # Learning log
 
 ## Phase 0: Setup
+
 - Git saves the history of my project. I can go back to any earlier version.
 - A commit is a saved snapshot with a short message about what changed.
 - A branch is a safe copy where I work on one small task. I do not edit main directly.
@@ -15,6 +16,7 @@
 - Branch protection stops direct changes to main. Every change needs a pull request.
 
 ## Phase 1: Web fundamentals
+
 - HTML says what things are. CSS says how they look. JavaScript says what they do.
 - Semantic tags like header, main and footer help screen readers move around the page.
 - CSS variables keep colours in one place, so one change updates everything.
@@ -27,7 +29,9 @@
 - A 404 means Not Found. I broke the data file on purpose and the page still showed a clear message.
 - Browsers block fetch from files on my disk, so I use a local server (npx serve).
 - A wrong property name like innterHTML gives no error, so I must read my code slowly.
+
 ## Phase 2: Design
+
 - Figma variables are design tokens. They match CSS custom properties, so design and code use the same colours.
 - A component is made once and reused as instances. Change the master and every copy updates.
 - Auto layout in Figma works like flexbox in CSS.

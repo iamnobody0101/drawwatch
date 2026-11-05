@@ -5,9 +5,11 @@ labels: feature
 ---
 
 ## Goal
+
 What should be possible after this task?
 
 ## Acceptance criteria
+
 - [ ]
 - [ ]
 

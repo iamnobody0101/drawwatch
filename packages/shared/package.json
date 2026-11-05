@@ -1,12 +1,12 @@
 {
-    "name": "@drawwatch/shared",
-    "version": "0.0.0",
-    "private": true,
-    "type": "module",
-    "main": "src/index.ts",
-    "types": "src/index.ts",
-    "scripts": {
-        "typecheck": "tsc -p tsconfig.json",
-        "generate": "node scripts/generate-draws.ts"
-    }
+  "name": "@drawwatch/shared",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "generate": "node scripts/generate-draws.ts"
+  }
 }
