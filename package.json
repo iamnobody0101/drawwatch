@@ -1,0 +1,13 @@
+{
+  "name": "drawwatch",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Sample lottery draw results and number-frequency charts (learning project).",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=26"
+  }
+}
