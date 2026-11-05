@@ -39,3 +39,13 @@
 - A feasibility review finds problems in a design before anyone writes code.
 - Colour must not be the only way to show meaning (hot and cold bars need labels or a table).
 - The free server sleeps, so the app needs a "waking up" message.
+
+## Phase 3: Monorepo, data and first CI
+
+- A monorepo keeps many packages in one repo. npm workspaces link them, so `apps/web` can use `packages/shared`.
+- TypeScript checks types before the code runs. `strict` mode catches the most mistakes.
+- A seeded random generator gives the same numbers for the same seed, so the sample data and the tests are repeatable.
+- A unit test gives a function a small input with a known answer and checks the result. Coverage shows which lines the tests ran.
+- ESLint finds likely bugs. Prettier formats code in one style. EditorConfig sets the basics for every editor.
+- CI is a robot (GitHub Actions) that runs format, lint, typecheck and tests on every pull request. `npm ci` installs exactly what the lock file says.
+- I stayed on ESLint 9 and TypeScript 6 on purpose, because the accessibility plugin does not support the newer versions yet.
