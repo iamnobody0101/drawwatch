@@ -1,1 +1,1 @@
-# drawwatch
+DrawWatch is a responsive web app that shows lottery draw results and number-frequency charts using sample data.
