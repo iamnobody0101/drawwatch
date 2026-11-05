@@ -11,20 +11,18 @@
             <h1>DrawWatch</h1>
         </header>
         <main>
-            <h2>Sample draw: Lotto 6/49</h2>
-            <p>Date: 2026-01-07</p>
-            <ul>
-                <li>3</li>
-                <li>12</li>
-                <li>19</li>
-                <li>27</li>
-                <li>33</li>
-                <li>41</li>
-            </ul>
-            <p>Bonus number: 8</p>
+            <h2>Results</h2>
+            <label for="game">Game:</label>
+            <select id="game">
+                <option value="all">All Games</option>
+                <option value="Lotto 6/49">Lotto 6/49</option>
+                <option value="Lotto Max">Lotto Max</option>
+            </select>
+            <div id="draws" aria-live="polite"></div>
         </main>
         <footer>
             <p>Sample data only. Not affiliated with OLG.</p>
         </footer>
+        <script src="app.js" defer></script>
     </body>
 </html>
