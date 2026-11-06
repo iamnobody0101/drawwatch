@@ -25,3 +25,4 @@ export const GAMES: Game[] = [
 ];
 
 export * from "./schemas.ts";
+export * from "./frequency.ts";

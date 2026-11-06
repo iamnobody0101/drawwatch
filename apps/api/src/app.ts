@@ -2,9 +2,9 @@
 
 import express from "express";
 import type { Express } from "express";
-import { drawFiltersSchema } from "@drawwatch/shared";
+import { calculateFrequency, drawFiltersSchema, frequencyQuerySchema } from "@drawwatch/shared";
 import type { DrawRepository } from "./drawRepository.ts";
-import { sendProblem } from "./problem.ts";
+import { sendProblem, sendValidationProblem } from "./problem.ts";
 
 export function createApp(repository: DrawRepository): Express {
   const app = express();
@@ -21,15 +21,28 @@ export function createApp(repository: DrawRepository): Express {
   api.get("/draws", (req, res) => {
     const parsed = drawFiltersSchema.safeParse(req.query);
     if (!parsed.success) {
-      sendProblem(res, 400, "Invalid query parameters", {
-        errors: parsed.error.issues.map((issue) => ({
-          field: issue.path.join("."),
-          message: issue.message,
-        })),
-      });
+      sendValidationProblem(res, parsed.error.issues);
       return;
     }
     res.json(repository.listDraws(parsed.data));
+  });
+
+  api.get("/stats/frequency", (req, res) => {
+    const parsed = frequencyQuerySchema.safeParse(req.query);
+    if (!parsed.success) {
+      sendValidationProblem(res, parsed.error.issues);
+      return;
+    }
+
+    const { gameId, from, to } = parsed.data;
+    const game = repository.findGame(gameId);
+    if (!game) {
+      sendProblem(res, 404, "Game not found");
+      return;
+    }
+
+    const draws = repository.findDraws({ gameId, from, to });
+    res.json({ gameId, from, to, ...calculateFrequency(draws, game.maxNumber) });
   });
 
   app.use("/api/v1", api);
