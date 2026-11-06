@@ -62,3 +62,14 @@
 - A route test starts the app on port 0 (any free port), calls it with `fetch`, and checks the answer. `async` and `await` let the test wait for the response.
 - A test that passes for the wrong reason is dangerous. A typo (`number` instead of `numbers`) made one test pass without proving anything.
 - Prettier warnings on new files were line endings (CRLF vs LF). `npx prettier --write` fixes them.
+
+## Phase 4 (extra): Deploy to Render
+
+- To deploy means to put the app on a server on the internet. Render runs it for free, but the free server sleeps after 15 minutes without visitors. The first request after sleep takes about one minute (a cold start), so the web app needs a "waking up" message.
+- Render builds from GitHub. The build command is `npm ci` (install exactly what the lock file says). The start command is `npm run start --workspace @drawwatch/api` (`--workspace` runs a script inside one package of the monorepo).
+- The Root Directory stays empty. The API needs `packages/shared`, and Render hides folders outside the root directory.
+- Render chooses the port and gives it to the app in the `PORT` environment variable. An environment variable is a named setting that lives outside the code. `server.ts` reads `process.env.PORT`, so no code change was needed.
+- `NODE_VERSION=26.13.0` makes Render use the same Node as my computers.
+- A health check is a request Render sends again and again to ask "are you alive?". Ours is `/api/v1/health`.
+- Auto-Deploy "After CI Checks Pass" waits for the GitHub `check` job. A broken commit does not go live.
+- I tested the live URL in the browser: health, games, draws, frequency and a 400 error all worked.
