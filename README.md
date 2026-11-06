@@ -6,11 +6,24 @@ DrawWatch is a responsive web app that shows lottery draw results and number-fre
 
 ## Status
 
-Learning project, built in phases. Phases 0 to 2 are done (setup, web basics, Figma design).
+Learning project, built in phases. Phases 0 to 4 are done (setup, web basics, Figma design, monorepo and data, REST API). The API is live on Render.
 
 ## Design
 
 [Figma design file](https://www.figma.com/design/08T77PnS11adVJ3scas88k/DrawWatch). The feasibility review is in `docs/design/feasibility-review.md`.
+
+## Live API
+
+The API runs on Render's free plan: https://drawwatch-api.onrender.com
+
+Try these in a browser:
+
+- Health: https://drawwatch-api.onrender.com/api/v1/health
+- Games: https://drawwatch-api.onrender.com/api/v1/games
+- Draws: https://drawwatch-api.onrender.com/api/v1/draws?gameId=lotto-649&pageSize=2
+- Number frequency: https://drawwatch-api.onrender.com/api/v1/stats/frequency?gameId=lotto-649
+
+The free plan goes to sleep after 15 minutes without visitors. The first request after that can take about one minute while the server wakes up. All data is made up.
 
 ## Plan
 
