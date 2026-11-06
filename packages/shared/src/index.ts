@@ -23,3 +23,5 @@ export const GAMES: Game[] = [
   { id: "lotto-max", name: "Lotto Max", pickCount: 7, maxNumber: 50, bonusMax: 50 },
   { id: "daily-grand", name: "Daily Grand", pickCount: 5, maxNumber: 49, bonusMax: 7 },
 ];
+
+export * from "./schemas.ts";
