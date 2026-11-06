@@ -49,3 +49,16 @@
 - ESLint finds likely bugs. Prettier formats code in one style. EditorConfig sets the basics for every editor.
 - CI is a robot (GitHub Actions) that runs format, lint, typecheck and tests on every pull request. `npm ci` installs exactly what the lock file says.
 - I stayed on ESLint 9 and TypeScript 6 on purpose, because the accessibility plugin does not support the newer versions yet.
+
+## Phase 4: REST API
+
+- A REST API answers web requests. A route is "when someone asks for this address, run this code". We keep all routes under `/api/v1` so a future `v2` will not break old users.
+- Express is a library for Node that receives requests and sends responses. `createApp()` builds the app without starting it, so tests can use it.
+- Zod checks data at runtime and gives the TypeScript type from the same rule. Query values come as text, so `z.coerce.number()` turns `"2"` into `2`. `safeParse` does not crash on bad data.
+- A repository class is the one place that knows where data is stored. Today it is a JSON file in memory. Later it could be a database, and the routes would not change.
+- Pagination: `start = (page - 1) * pageSize`, then `slice(start, start + pageSize)`. `total` lets the web app show "page 2 of 8".
+- Status codes: 200 is ok, 400 means the caller made a mistake, 404 means not found. Errors use the standard RFC 9457 format (`application/problem+json`).
+- Dependency injection: `createApp(repository)` receives its data from outside, so tests can give it fake data.
+- A route test starts the app on port 0 (any free port), calls it with `fetch`, and checks the answer. `async` and `await` let the test wait for the response.
+- A test that passes for the wrong reason is dangerous. A typo (`number` instead of `numbers`) made one test pass without proving anything.
+- Prettier warnings on new files were line endings (CRLF vs LF). `npx prettier --write` fixes them.
