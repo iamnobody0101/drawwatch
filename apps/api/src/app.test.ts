@@ -2,7 +2,7 @@ import type { Server } from "node:http";
 import type { AddressInfo } from "node:net";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { Draw } from "@drawwatch/shared";
-import { createApp } from "./app.ts";
+import { ALLOWED_ORIGINS, createApp } from "./app.ts";
 import { DrawRepository } from "./drawRepository.ts";
 
 function makeDraw(gameId: Draw["gameId"], date: string, numbers: number[]): Draw {
@@ -118,10 +118,15 @@ describe("unknown address", () => {
 });
 
 describe("CORS", () => {
-  it("lets other websites read the API", async () => {
+  it.each(ALLOWED_ORIGINS)("lets %s read the API", async (origin) => {
+    const response = await fetch(`${baseUrl}/health`, { headers: { Origin: origin } });
+    expect(response.headers.get("access-control-allow-origin")).toBe(origin);
+  });
+
+  it("does not let other websites read the API", async () => {
     const response = await fetch(`${baseUrl}/health`, {
       headers: { Origin: "https://example.com" },
     });
-    expect(response.headers.get("access-control-allow-origin")).toBe("*");
+    expect(response.headers.get("access-control-allow-origin")).toBeNull();
   });
 });
