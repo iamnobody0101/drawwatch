@@ -35,6 +35,10 @@ export class DrawRepository {
     return GAMES.find((game) => game.id === id);
   }
 
+  findDraw(id: string): Draw | undefined {
+    return this.draws.find((draw) => draw.id === id);
+  }
+
   findDraws(filters: Pick<DrawFilters, "gameId" | "from" | "to">): Draw[] {
     return this.draws.filter(
       (draw) =>
