@@ -86,3 +86,18 @@
 - React Testing Library tests a component the way a person uses it: find by role or text, click, press keys. `jsdom` is a fake browser inside Node, and `cleanup` removes each test's output.
 - `jsx-a11y` is an ESLint plugin. It rejected a clickable `div` because the keyboard cannot reach it. `react-hooks` checks the rules of React hooks.
 - Some colors looked purple in my browser because of a color extension. A private window showed the real blue.
+
+## Phase 6: Results page
+
+- A single-page app (SPA) loads one page and changes what is on screen with JavaScript. React Router changes the address without reloading the browser. A route says "for this address, show this page". A layout route draws the frame (header, footer) and an `<Outlet />` shows the current page inside it.
+- TanStack Query fetches and remembers server data. `useQuery` gives `data`, `isPending` and `isError`. A `queryKey` is the name of the data in the cache; when the key changes (a new filter), Query fetches again. `keepPreviousData` keeps the old list on screen while the next page loads. Retries wait longer each time (exponential backoff).
+- The API client is the one place that knows how to call the API. `fetch` does not throw for a 404 or 500, so the client checks `response.ok` and throws its own `ApiError`.
+- CORS is a browser rule: a page may not read answers from another website unless that server says "allowed". The API sends `Access-Control-Allow-Origin: *` for GET requests. This is safe here because the data is public and there are no logins or cookies.
+- `.env.local` holds settings for my own computer. Names that start with `VITE_` reach the browser code. Files ending in `.local` are ignored by Git.
+- Filters live in the URL (`?gameId=lotto-max&page=2`), read with `useSearchParams`. A shared link opens the same view and the Back button works. The text in the address can be anything, so a parser turns it into a safe value (a real game id, or page 1). `Object.hasOwn` is safer than `in`, because `in` finds hidden names like `toString`.
+- The cold-start message: the app asks `/health` when it loads, and `useAfterDelay` shows "Waking up the server" only if there is no answer after 3 seconds. A fast server shows nothing.
+- Accessibility: a skip link lets keyboard users jump to the main content. Landmarks (`header`, `nav`, `main`, `footer`) let screen readers jump around. A visible `label` is connected to its dropdown with `htmlFor` and `id`. `aria-current="page"` marks the current link, and it is also underlined so colour is not the only signal. `aria-live="polite"` announces "Page 2 of 79".
+- MSW (Mock Service Worker) answers `fetch` calls inside tests with fake data, so the real client, hooks and page are tested together without the internet. In MSW 3 the option is `onUnhandledFrame: "error"`.
+- Testing Library finds things like a person would (by role and name). `findBy` waits, `getBy` must find it now, `queryBy` allows "not there". `server.use` changes the fake answer for one test (empty list, a 500 error).
+- Fake timers (`vi.useFakeTimers`) let a test move the clock by hand, so the 3-second rule is tested in a few milliseconds.
+- Prettier, TypeScript and ESLint do not check spelling inside CSS. A typo like `border-raidus` is silently ignored by the browser. I must compare my files with care and watch for yellow underlines in `.css` files.

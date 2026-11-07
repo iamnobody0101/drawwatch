@@ -1,5 +1,6 @@
 // Builds the Express app. It does not start the server, so tests can use it.
 
+import cors from "cors";
 import express from "express";
 import type { Express } from "express";
 import { calculateFrequency, drawFiltersSchema, frequencyQuerySchema } from "@drawwatch/shared";
@@ -8,6 +9,7 @@ import { sendProblem, sendValidationProblem } from "./problem.ts";
 
 export function createApp(repository: DrawRepository): Express {
   const app = express();
+  app.use(cors({ methods: ["GET"] }));
   const api = express.Router();
 
   api.get("/health", (_req, res) => {
