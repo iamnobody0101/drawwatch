@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 import { EmptyState } from "./EmptyState";
 import { ErrorState } from "./ErrorState";
 import { LoadingState } from "./LoadingState";
+import { PageOutOfRangeState } from "./PageOutOfRangeState";
 import { WakingUpState } from "./WakingUpState";
 
 describe("LoadingState", () => {
@@ -41,5 +42,20 @@ describe("ErrorState", () => {
     render(<ErrorState onRetry={onRetry} />);
     await user.click(screen.getByRole("button", { name: "Try again" }));
     expect(onRetry).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("PageOutOfRangeState", () => {
+  it("tells the user the page does not exist", () => {
+    render(<PageOutOfRangeState onGoToFirstPage={() => {}} />);
+    expect(screen.getByRole("status")).toHaveTextContent("This page does not exist.");
+  });
+
+  it("calls onGoToFirstPage when Go to page 1 is pressed", async () => {
+    const user = userEvent.setup();
+    const onGoToFirstPage = vi.fn();
+    render(<PageOutOfRangeState onGoToFirstPage={onGoToFirstPage} />);
+    await user.click(screen.getByRole("button", { name: "Go to page 1" }));
+    expect(onGoToFirstPage).toHaveBeenCalledTimes(1);
   });
 });
