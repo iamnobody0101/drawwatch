@@ -1,0 +1,29 @@
+.title {
+  margin: 0 0 var(--space-4);
+  font-size: 1.75rem;
+}
+
+.section {
+  margin-bottom: var(--space-6);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.heading {
+  margin: 0 0 var(--space-2);
+  font-size: 1.25rem;
+}
+
+.section p {
+  margin: 0;
+}
+
+.link {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.link:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
