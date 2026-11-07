@@ -34,6 +34,7 @@ describe("ErrorState", () => {
   it("announces the error as an alert", () => {
     render(<ErrorState onRetry={() => {}} />);
     expect(screen.getByRole("alert")).toHaveTextContent("Sorry, the draws could not be loaded.");
+    expect(screen.getByRole("alert")).toHaveTextContent("the server may be busy");
   });
 
   it("calls onRetry when Try again is pressed", async () => {
