@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router";
+import { Link as RouterLink, NavLink, Outlet } from "react-router";
 import { ServerStatus } from "../ServerStatus/ServerStatus.tsx";
 import styles from "./Layout.module.css";
 
@@ -10,11 +10,14 @@ export function Layout() {
       </a>
       <header className={styles.header}>
         <div className={styles.inner}>
-          <p className={styles.brand}>DrawWatch</p>
+          <p className={styles.brand}>
+            <RouterLink to="/">DrawWatch</RouterLink>
+          </p>
           <nav className={styles.nav} aria-label="Main">
             <NavLink to="/" end>
               Results
             </NavLink>
+            <NavLink to="/about">About</NavLink>
           </nav>
         </div>
       </header>
