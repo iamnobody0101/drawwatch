@@ -6,11 +6,18 @@ DrawWatch is a responsive web app that shows lottery draw results and number-fre
 
 ## Status
 
-Learning project, built in phases. Phases 0 to 4 are done (setup, web basics, Figma design, monorepo and data, REST API). The API is live on Render.
+Learning project, built in phases. Phases 0 to 5 are done (setup, web basics, Figma design, monorepo and data, REST API, component library). The API is live on Render.
 
 ## Design
 
 [Figma design file](https://www.figma.com/design/08T77PnS11adVJ3scas88k/DrawWatch). The feasibility review is in `docs/design/feasibility-review.md`.
+
+## Component library
+
+The web app (`apps/web`) has reusable React components built from the Figma design: NumberBall, DrawCard, Button, StatusMessage, and the loading, empty, error and waking-up states. Each one has a Storybook story and tests, and is checked for accessibility (WCAG AA).
+
+- Run Storybook: `npm run storybook --workspace @drawwatch/web` (opens at http://localhost:6006)
+- Run all tests: `npm test`
 
 ## Live API
 

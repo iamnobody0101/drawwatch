@@ -73,3 +73,16 @@
 - A health check is a request Render sends again and again to ask "are you alive?". Ours is `/api/v1/health`.
 - Auto-Deploy "After CI Checks Pass" waits for the GitHub `check` job. A broken commit does not go live.
 - I tested the live URL in the browser: health, games, draws, frequency and a 400 error all worked.
+
+## Phase 5: Component library
+
+- A component is a small, reusable piece of the screen, written as a function that returns HTML-like code (JSX). Props are the inputs of a component, like `value` for NumberBall.
+- Vite builds and serves the React app. `apps/web` is a new package in the monorepo, next to `apps/api` and `packages/shared`.
+- Storybook shows each component alone, in every state (a "story"). It is a catalogue of the design, and it can check accessibility with the a11y add-on.
+- Design tokens are named values (colors, spacing, radius) taken from Figma and saved as CSS variables in `tokens.css`. Changing one token changes the whole app.
+- CSS Modules keep each component's CSS private, so class names never clash.
+- Accessibility (a11y) means everyone can use the app. I used real HTML elements (`article`, `h2`, `time`, `ul`, `button`), enough color contrast (WCAG AA), a visible focus ring for keyboard users, and `rem` units so text can grow.
+- `role="status"` (polite) and `role="alert"` (urgent) tell screen readers about changing messages.
+- React Testing Library tests a component the way a person uses it: find by role or text, click, press keys. `jsdom` is a fake browser inside Node, and `cleanup` removes each test's output.
+- `jsx-a11y` is an ESLint plugin. It rejected a clickable `div` because the keyboard cannot reach it. `react-hooks` checks the rules of React hooks.
+- Some colors looked purple in my browser because of a color extension. A private window showed the real blue.
