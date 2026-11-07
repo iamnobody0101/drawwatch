@@ -55,6 +55,10 @@ export function fetchDraws(query: DrawQuery = {}, signal?: AbortSignal): Promise
   return getJson<DrawPage>("/draws", query, signal);
 }
 
+export function fetchDraw(id: string, signal?: AbortSignal): Promise<Draw> {
+  return getJson<Draw>(`/draws/${encodeURIComponent(id)}`, {}, signal);
+}
+
 export function fetchHealth(signal?: AbortSignal): Promise<{ status: string }> {
   return getJson<{ status: string }>("/health", {}, signal);
 }

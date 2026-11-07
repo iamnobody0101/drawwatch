@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { useSearchParams } from "react-router";
+import { Link as RouterLink, useLocation, useSearchParams } from "react-router";
 import { useDraws, useGames } from "../api/queries.ts";
 import { DrawCard } from "../components/DrawCard/DrawCard.tsx";
 import { GameSelect } from "../components/GameSelect/GameSelect.tsx";
@@ -13,6 +13,7 @@ import styles from "./ResultsPage.module.css";
 
 export function ResultsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
   const gameId = parseGameId(searchParams.get("gameId"));
   const page = parsePage(searchParams.get("page"));
   const games = useGames();
@@ -50,16 +51,30 @@ export function ResultsPage() {
     content = (
       <>
         <ul className={styles.list}>
-          {draws.data.items.map((draw) => (
-            <li key={draw.id}>
-              <DrawCard
-                gameName={games.data?.find((game) => game.id === draw.gameId)?.name ?? draw.gameId}
-                date={draw.date}
-                numbers={draw.numbers}
-                bonus={draw.bonus}
-              />
-            </li>
-          ))}
+          {draws.data.items.map((draw) => {
+            const gameName =
+              games.data?.find((game) => game.id === draw.gameId)?.name ?? draw.gameId;
+            return (
+              <li key={draw.id}>
+                <DrawCard
+                  gameName={gameName}
+                  date={draw.date}
+                  numbers={draw.numbers}
+                  bonus={draw.bonus}
+                  footer={
+                    <RouterLink
+                      className={styles.detailLink}
+                      to={`/draws/${encodeURIComponent(draw.id)}`}
+                      state={{ backTo: `${location.pathname}${location.search}` }}
+                      aria-label={`View details for ${gameName} on ${draw.date}`}
+                    >
+                      View details
+                    </RouterLink>
+                  }
+                />
+              </li>
+            );
+          })}
         </ul>
         <Pagination page={page} totalPages={totalPages} onPageChange={changePage} />
       </>

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { NumberBall } from "../NumberBall/NumberBall";
 import styles from "./DrawCard.module.css";
 
@@ -6,9 +7,10 @@ type DrawCardProps = {
   date: string;
   numbers: number[];
   bonus: number;
+  footer?: ReactNode;
 };
 
-export function DrawCard({ gameName, date, numbers, bonus }: DrawCardProps) {
+export function DrawCard({ gameName, date, numbers, bonus, footer }: DrawCardProps) {
   return (
     <article className={styles.card}>
       <h2 className={styles.title}>{gameName}</h2>
@@ -23,6 +25,7 @@ export function DrawCard({ gameName, date, numbers, bonus }: DrawCardProps) {
         ))}
       </ul>
       <p className={styles.bonus}>Bonus number: {bonus}</p>
+      {footer ? <div className={styles.footer}>{footer}</div> : null}
     </article>
   );
 }

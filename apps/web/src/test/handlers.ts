@@ -39,4 +39,11 @@ export const handlers = [
       pageSize: PAGE_SIZE,
     });
   }),
+  http.get("*/api/v1/draws/:id", ({ params }) => {
+    const draw = draws.find((item) => item.id === params.id);
+    if (!draw) {
+      return HttpResponse.json({ title: "Draw not found", status: 404 }, { status: 404 });
+    }
+    return HttpResponse.json(draw);
+  }),
 ];

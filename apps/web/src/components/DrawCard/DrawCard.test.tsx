@@ -31,4 +31,14 @@ describe("DrawCard", () => {
     render(<DrawCard {...draw} />);
     expect(screen.getByText("Bonus number: 8")).toBeInTheDocument();
   });
+
+  it("shows the footer when one is given", () => {
+    render(<DrawCard {...draw} footer={<a href="/draws/x">View details</a>} />);
+    expect(screen.getByRole("link", { name: "View details" })).toBeInTheDocument();
+  });
+
+  it("shows no footer when none is given", () => {
+    render(<DrawCard {...draw} />);
+    expect(screen.queryByRole("link")).not.toBeInTheDocument();
+  });
 });

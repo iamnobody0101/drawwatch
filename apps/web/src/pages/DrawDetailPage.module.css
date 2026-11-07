@@ -1,0 +1,16 @@
+.backLink {
+  display: inline-block;
+  margin-bottom: var(--space-4);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.backLink:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.title {
+  margin: 0 0 var(--space-4);
+  font-size: 1.75rem;
+}

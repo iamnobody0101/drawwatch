@@ -10,3 +10,13 @@
   padding: 0;
   list-style: none;
 }
+
+.detailLink {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.detailLink:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
