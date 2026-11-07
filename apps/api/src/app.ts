@@ -7,9 +7,12 @@ import { calculateFrequency, drawFiltersSchema, frequencyQuerySchema } from "@dr
 import type { DrawRepository } from "./drawRepository.ts";
 import { sendProblem, sendValidationProblem } from "./problem.ts";
 
+// Only these websites may read the API from a browser: the live site and local development.
+export const ALLOWED_ORIGINS = ["https://drawwatch.vercel.app", "http://localhost:5173"];
+
 export function createApp(repository: DrawRepository): Express {
   const app = express();
-  app.use(cors({ methods: ["GET"] }));
+  app.use(cors({ origin: ALLOWED_ORIGINS, methods: ["GET"] }));
   const api = express.Router();
 
   api.get("/health", (_req, res) => {
