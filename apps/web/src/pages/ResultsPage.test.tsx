@@ -28,6 +28,12 @@ beforeEach(() => {
 });
 
 describe("ResultsPage", () => {
+  it("sets the page title", async () => {
+    renderPage();
+    await screen.findAllByRole("article");
+    await waitFor(() => expect(document.title).toBe("Results | DrawWatch"));
+  });
+
   it("shows a loading message, then the first page of draws", async () => {
     renderPage();
     expect(screen.getByRole("status")).toHaveTextContent("Loading draws...");

@@ -1,8 +1,13 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { AboutPage } from "./AboutPage.tsx";
 
 describe("AboutPage", () => {
+  it("sets the page title", async () => {
+    render(<AboutPage />);
+    await waitFor(() => expect(document.title).toBe("About | DrawWatch"));
+  });
+
   it("has one main heading and a heading for each section", () => {
     render(<AboutPage />);
     expect(screen.getByRole("heading", { name: "About DrawWatch", level: 1 })).toBeInTheDocument();

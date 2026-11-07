@@ -42,6 +42,7 @@ export function DrawDetailPage() {
 
   return (
     <div>
+      <title>Draw details | DrawWatch</title>
       <RouterLink className={styles.backLink} to={parseBackTo(location.state)}>
         Back to results
       </RouterLink>

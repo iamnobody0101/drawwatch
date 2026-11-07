@@ -83,6 +83,7 @@ export function ResultsPage() {
 
   return (
     <div>
+      <title>Results | DrawWatch</title>
       <h1 className={styles.title}>Results</h1>
       <GameSelect games={games.data ?? []} value={gameId ?? ""} onChange={changeGame} />
       {content}
