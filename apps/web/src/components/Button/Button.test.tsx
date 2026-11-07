@@ -26,4 +26,18 @@ describe("Button", () => {
     await user.keyboard("{Enter}");
     expect(onClick).toHaveBeenCalledTimes(1);
   });
+
+  it("does not call onClick when it is disabled", async () => {
+    const user = userEvent.setup();
+    const onClick = vi.fn();
+    render(
+      <Button onClick={onClick} disabled>
+        Try again
+      </Button>,
+    );
+    const button = screen.getByRole("button", { name: "Try again" });
+    expect(button).toHaveAttribute("aria-disabled", "true");
+    await user.click(button);
+    expect(onClick).not.toHaveBeenCalled();
+  });
 });

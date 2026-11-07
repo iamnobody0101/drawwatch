@@ -16,6 +16,12 @@
   background: var(--color-primary-hover);
 }
 
+.button[aria-disabled="true"] {
+  background: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
 .button:focus-visible {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
