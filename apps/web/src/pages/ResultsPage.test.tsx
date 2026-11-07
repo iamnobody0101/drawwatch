@@ -132,4 +132,14 @@ describe("ResultsPage", () => {
     await user.click(screen.getByRole("button", { name: "Try again" }));
     expect(await screen.findAllByRole("article")).toHaveLength(2);
   });
+
+  it("links each card to its detail page", async () => {
+    renderPage("/?gameId=lotto-max");
+
+    const link = await screen.findByRole("link", {
+      name: "View details for Lotto Max on 2026-01-04",
+    });
+    expect(link).toHaveAttribute("href", "/draws/b");
+    expect(screen.getAllByRole("link", { name: /^View details for/ })).toHaveLength(2);
+  });
 });

@@ -39,6 +39,16 @@
   font-weight: 700;
 }
 
+.brand a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-4);
+}
+
 .nav a {
   color: var(--color-text-muted);
   font-weight: 600;
@@ -58,4 +68,10 @@
 .footer {
   color: var(--color-text-muted);
   font-size: 0.875rem;
+}
+
+.brand a:focus-visible,
+.nav a:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
 }

@@ -1,5 +1,5 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { fetchDraws, fetchGames, fetchHealth } from "./client.ts";
+import { ApiError, fetchDraw, fetchDraws, fetchGames, fetchHealth } from "./client.ts";
 import type { DrawQuery } from "./client.ts";
 
 export function useGames() {
@@ -15,6 +15,16 @@ export function useDraws(query: DrawQuery) {
     queryKey: ["draws", query],
     queryFn: ({ signal }) => fetchDraws(query, signal),
     placeholderData: keepPreviousData,
+  });
+}
+
+export function useDraw(id: string) {
+  return useQuery({
+    queryKey: ["draw", id],
+    queryFn: ({ signal }) => fetchDraw(id, signal),
+    // A 404 means "this draw does not exist". Asking again will not help.
+    retry: (failureCount, error) =>
+      !(error instanceof ApiError && error.status === 404) && failureCount < 3,
   });
 }
 
