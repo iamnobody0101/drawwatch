@@ -21,3 +21,7 @@ export const Default: Story = {};
 export const LongText: Story = {
   args: { children: "Show the latest draws again" },
 };
+
+export const Disabled: Story = {
+  args: { disabled: true },
+};

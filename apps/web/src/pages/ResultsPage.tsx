@@ -7,6 +7,7 @@ import { Pagination } from "../components/Pagination/Pagination.tsx";
 import { EmptyState } from "../components/states/EmptyState.tsx";
 import { ErrorState } from "../components/states/ErrorState.tsx";
 import { LoadingState } from "../components/states/LoadingState.tsx";
+import { PageOutOfRangeState } from "../components/states/PageOutOfRangeState.tsx";
 import { parseGameId, parsePage } from "./filters.ts";
 import styles from "./ResultsPage.module.css";
 
@@ -42,7 +43,8 @@ export function ResultsPage() {
   } else if (draws.isError) {
     content = <ErrorState onRetry={() => void draws.refetch()} />;
   } else if (draws.data.items.length === 0) {
-    content = <EmptyState />;
+    content =
+      page > 1 ? <PageOutOfRangeState onGoToFirstPage={() => changePage(1)} /> : <EmptyState />;
   } else {
     const totalPages = Math.ceil(draws.data.total / draws.data.pageSize);
     content = (

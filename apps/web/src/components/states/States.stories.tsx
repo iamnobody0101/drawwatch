@@ -3,6 +3,7 @@ import { fn } from "storybook/test";
 import { EmptyState } from "./EmptyState";
 import { ErrorState } from "./ErrorState";
 import { LoadingState } from "./LoadingState";
+import { PageOutOfRangeState } from "./PageOutOfRangeState";
 import { WakingUpState } from "./WakingUpState";
 
 const meta = {
@@ -34,4 +35,8 @@ export const Failed: Story = {
 
 export const WakingUp: Story = {
   render: () => <WakingUpState />,
+};
+
+export const PageOutOfRange: Story = {
+  render: () => <PageOutOfRangeState onGoToFirstPage={fn()} />,
 };

@@ -15,13 +15,17 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
   return (
     <nav className={styles.pagination} aria-label="Pagination">
       <div className={styles.slot}>
-        {page > 1 ? <Button onClick={() => onPageChange(page - 1)}>Previous</Button> : null}
+        <Button disabled={page <= 1} onClick={() => onPageChange(page - 1)}>
+          Previous
+        </Button>
       </div>
       <p className={styles.status} aria-live="polite">
         Page {page} of {totalPages}
       </p>
       <div className={styles.slot}>
-        {page < totalPages ? <Button onClick={() => onPageChange(page + 1)}>Next</Button> : null}
+        <Button disabled={page >= totalPages} onClick={() => onPageChange(page + 1)}>
+          Next
+        </Button>
       </div>
     </nav>
   );
