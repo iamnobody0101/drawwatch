@@ -29,6 +29,15 @@ export function createApp(repository: DrawRepository): Express {
     res.json(repository.listDraws(parsed.data));
   });
 
+  api.get("/draws/:id", (req, res) => {
+    const draw = repository.findDraw(req.params.id);
+    if (!draw) {
+      sendProblem(res, 404, "Draw not found");
+      return;
+    }
+    res.json(draw);
+  });
+
   api.get("/stats/frequency", (req, res) => {
     const parsed = frequencyQuerySchema.safeParse(req.query);
     if (!parsed.success) {

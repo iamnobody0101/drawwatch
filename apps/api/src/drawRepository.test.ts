@@ -41,6 +41,14 @@ describe("DrawRepository", () => {
     expect(repo.findGame("lotto-max")?.name).toBe("Lotto Max");
   });
 
+  it("finds one draw by id", () => {
+    expect(repo.findDraw("lotto-max-2026-01-02")?.gameId).toBe("lotto-max");
+  });
+
+  it("returns undefined when the draw id does not exist", () => {
+    expect(repo.findDraw("nope")).toBeUndefined();
+  });
+
   it("loads the real draws.json file", () => {
     const here = dirname(fileURLToPath(import.meta.url));
     const real = DrawRepository.fromFile(resolve(here, "../data/draws.json"));

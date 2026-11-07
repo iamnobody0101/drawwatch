@@ -76,6 +76,22 @@ describe("GET /draws", () => {
   });
 });
 
+describe("GET /draws/:id", () => {
+  it("returns one draw", async () => {
+    const { status, body } = await get<Draw>("/draws/lotto-max-2026-01-03");
+    expect(status).toBe(200);
+    expect(body.gameId).toBe("lotto-max");
+    expect(body.numbers).toEqual([10, 11, 12, 13, 14, 15, 16]);
+  });
+
+  it("answers 404 when the draw does not exist", async () => {
+    const { status, contentType, body } = await get<{ title: string }>("/draws/nope");
+    expect(status).toBe(404);
+    expect(contentType).toContain("application/problem+json");
+    expect(body.title).toBe("Draw not found");
+  });
+});
+
 describe("GET /stats/frequency", () => {
   it("counts how often each number was drawn", async () => {
     const { body } = await get<{
