@@ -1,6 +1,11 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from "eslint-plugin-storybook";
+
 import js from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import globals from "globals";
+import jsxA11y from "eslint-plugin-jsx-a11y";
+import reactHooks from "eslint-plugin-react-hooks";
 import tseslint from "typescript-eslint";
 
 export default defineConfig([
@@ -11,4 +16,10 @@ export default defineConfig([
     files: ["learning/**/*.js"],
     languageOptions: { globals: globals.browser },
   },
+  {
+    files: ["apps/web/**/*.{ts,tsx}"],
+    extends: [jsxA11y.flatConfigs.recommended, reactHooks.configs.flat.recommended],
+    languageOptions: { globals: globals.browser },
+  },
+  ...storybook.configs["flat/recommended"],
 ]);
