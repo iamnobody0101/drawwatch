@@ -3,6 +3,7 @@ import styles from "./AboutPage.module.css";
 export function AboutPage() {
   return (
     <div>
+      <title>About | DrawWatch</title>
       <h1 className={styles.title}>About DrawWatch</h1>
 
       <section className={styles.section}>

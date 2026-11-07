@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes, useLocation } from "react-router";
 import { describe, expect, it } from "vitest";
@@ -27,6 +27,12 @@ function renderPage(entry: Entry) {
 }
 
 describe("DrawDetailPage", () => {
+  it("sets the page title", async () => {
+    renderPage("/draws/b");
+    await screen.findByRole("heading", { name: "Lotto Max", level: 2 });
+    await waitFor(() => expect(document.title).toBe("Draw details | DrawWatch"));
+  });
+
   it("shows a loading message, then the draw", async () => {
     renderPage("/draws/b");
     expect(screen.getByRole("status")).toHaveTextContent("Loading draw...");
