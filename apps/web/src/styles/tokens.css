@@ -1,0 +1,28 @@
+:root {
+  /* Colors from the Figma file */
+  --color-bg: #f8fafc;
+  --color-text: #0f172a;
+  --color-text-muted: #475569;
+  --color-ball: #1d4ed8;
+  --color-ball-text: #ffffff;
+
+  /* Colors added by us (not read from Figma) */
+  --color-surface: #ffffff;
+  --color-border: #cbd5e1;
+  --color-focus: #1d4ed8;
+  --color-error: #b91c1c;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+
+  /* Shape and size */
+  --radius-card: 12px;
+  --ball-size: 44px;
+
+  /* Text */
+  --font-sans: system-ui, "Segoe UI", Roboto, sans-serif;
+}
