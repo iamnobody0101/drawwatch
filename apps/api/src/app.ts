@@ -2,6 +2,7 @@
 
 import cors from "cors";
 import express from "express";
+import helmet from "helmet";
 import type { Express } from "express";
 import { calculateFrequency, drawFiltersSchema, frequencyQuerySchema } from "@drawwatch/shared";
 import type { DrawRepository } from "./drawRepository.ts";
@@ -12,6 +13,9 @@ export const ALLOWED_ORIGINS = ["https://drawwatch.vercel.app", "http://localhos
 
 export function createApp(repository: DrawRepository): Express {
   const app = express();
+  // helmet adds safe security headers and removes "X-Powered-By: Express".
+  // The data is public, so other websites may read it (cross-origin); cors() below decides who.
+  app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
   app.use(cors({ origin: ALLOWED_ORIGINS, methods: ["GET"] }));
   const api = express.Router();
 

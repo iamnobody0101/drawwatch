@@ -130,3 +130,15 @@ describe("CORS", () => {
     expect(response.headers.get("access-control-allow-origin")).toBeNull();
   });
 });
+
+describe("Security headers", () => {
+  it("does not tell visitors that the server is Express", async () => {
+    const response = await fetch(`${baseUrl}/health`);
+    expect(response.headers.get("x-powered-by")).toBeNull();
+  });
+
+  it("stops browsers from guessing the content type", async () => {
+    const response = await fetch(`${baseUrl}/health`);
+    expect(response.headers.get("x-content-type-options")).toBe("nosniff");
+  });
+});
