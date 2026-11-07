@@ -100,3 +100,12 @@ describe("unknown address", () => {
     expect(status).toBe(404);
   });
 });
+
+describe("CORS", () => {
+  it("lets other websites read the API", async () => {
+    const response = await fetch(`${baseUrl}/health`, {
+      headers: { Origin: "https://example.com" },
+    });
+    expect(response.headers.get("access-control-allow-origin")).toBe("*");
+  });
+});
