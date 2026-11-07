@@ -92,7 +92,7 @@
 - A single-page app (SPA) loads one page and changes what is on screen with JavaScript. React Router changes the address without reloading the browser. A route says "for this address, show this page". A layout route draws the frame (header, footer) and an `<Outlet />` shows the current page inside it.
 - TanStack Query fetches and remembers server data. `useQuery` gives `data`, `isPending` and `isError`. A `queryKey` is the name of the data in the cache; when the key changes (a new filter), Query fetches again. `keepPreviousData` keeps the old list on screen while the next page loads. Retries wait longer each time (exponential backoff).
 - The API client is the one place that knows how to call the API. `fetch` does not throw for a 404 or 500, so the client checks `response.ok` and throws its own `ApiError`.
-- CORS is a browser rule: a page may not read answers from another website unless that server says "allowed". The API sends `Access-Control-Allow-Origin: *` for GET requests. This is safe here because the data is public and there are no logins or cookies.
+- CORS is a browser rule: a page may not read answers from another website unless that server says "allowed". At first the API sent `Access-Control-Allow-Origin: *` (any website) for GET requests. In Phase 6 part 2 this was tightened to an allow-list (see below).
 - `.env.local` holds settings for my own computer. Names that start with `VITE_` reach the browser code. Files ending in `.local` are ignored by Git.
 - Filters live in the URL (`?gameId=lotto-max&page=2`), read with `useSearchParams`. A shared link opens the same view and the Back button works. The text in the address can be anything, so a parser turns it into a safe value (a real game id, or page 1). `Object.hasOwn` is safer than `in`, because `in` finds hidden names like `toString`.
 - The cold-start message: the app asks `/health` when it loads, and `useAfterDelay` shows "Waking up the server" only if there is no answer after 3 seconds. A fast server shows nothing.
@@ -101,3 +101,18 @@
 - Testing Library finds things like a person would (by role and name). `findBy` waits, `getBy` must find it now, `queryBy` allows "not there". `server.use` changes the fake answer for one test (empty list, a 500 error).
 - Fake timers (`vi.useFakeTimers`) let a test move the clock by hand, so the 3-second rule is tested in a few milliseconds.
 - Prettier, TypeScript and ESLint do not check spelling inside CSS. A typo like `border-raidus` is silently ignored by the browser. I must compare my files with care and watch for yellow underlines in `.css` files.
+
+## Phase 6 (part 2): Draw detail, About, Not Found and Vercel
+
+- A new API route needs a test first. `GET /api/v1/draws/:id` was missing, so I added `findDraw` to the repository, then the route. A missing draw answers 404 in the same problem+json format as other errors.
+- `useParams` reads the `:id` part of the address. A `*` route catches every address that no other route matches, so it shows the Not Found page.
+- Router state: a link can carry hidden data (`state`). The Results card sends the current filter address as `backTo`, and the detail page's "Back to results" link uses it, so the filters are kept. The state can be anything, so `parseBackTo` accepts only a text that starts with `/` and not `//`; otherwise it goes to `/`.
+- `useDraw` does not retry a 404, because asking again cannot make a missing draw appear. Other errors retry up to 3 times.
+- A link's `aria-label` should start with its visible text, so voice-control users can say what they see. Each page has one `h1`.
+- Tests with `MemoryRouter` open a page at a chosen address without a browser. `it.each` runs one test for every item of a list.
+- Vercel hosts the web app. Settings: Root Directory `apps/web`, preset Vite, Build Command `npm run build`, and Install Command `cd ../.. && npm ci`. The install command must run at the repository root, otherwise root tools such as vitest are missing and the build fails (`Cannot find module 'vitest'`). The environment variable `VITE_API_URL` points to the Render API. It is read when the app is built, so a change needs a new deploy.
+- A single-page app has only one real file, `index.html`. Without help, opening `/about` directly gives the host's own 404. `vercel.json` has a rewrite that sends every address to `index.html`, and React Router then shows the right page.
+- Deployment Protection (Vercel Authentication) asks visitors to log in. I turned it off, so the site is public.
+- Every pull request gets a Vercel preview address. Previews cannot load data, because their address is not in the API's CORS allow-list.
+- CORS allow-list: the `cors` package gets an array of allowed origins. It repeats back the caller's origin only if it is in the list, and adds `Vary: Origin`. Other websites get no header, so their browsers block the answer. CORS is enforced by browsers only; `curl` can still read the API, which is fine for public data.
+- Order of work that avoided a broken site: deploy the web app first, then restrict CORS, and check the live site after both.

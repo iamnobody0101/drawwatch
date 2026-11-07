@@ -6,7 +6,10 @@ DrawWatch is a responsive web app that shows lottery draw results and number-fre
 
 ## Status
 
-Learning project, built in phases. Phases 0 to 5 are done (setup, web basics, Figma design, monorepo and data, REST API, component library). Phase 6 has started: the web app now has a Results page with game filter and pagination. The API is live on Render.
+Learning project, built in phases. Phases 0 to 6 are done (setup, web basics, Figma design, monorepo and data, REST API, component library, web pages and deploy). The web app is live on Vercel and the API is live on Render.
+
+- Live web app: https://drawwatch.vercel.app
+- Live API: https://drawwatch-api.onrender.com
 
 ## Design
 
@@ -21,7 +24,14 @@ The web app (`apps/web`) has reusable React components built from the Figma desi
 
 ## Web app
 
-The Results page lists draws from the API. The game filter and the page number live in the address (for example `/?gameId=lotto-max&page=2`), so a filtered view can be shared and the Back button works.
+The web app has these pages, all reachable from the menu or by links:
+
+- Results (`/`): lists draws from the API. The game filter and the page number live in the address (for example `/?gameId=lotto-max&page=2`), so a filtered view can be shared and the Back button works.
+- Draw detail (`/draws/:id`): one draw with its numbers. Its "Back to results" link returns to the same filter and page.
+- About (`/about`): what DrawWatch is, where the data comes from, and the disclaimer (made-up data, not affiliated with OLG).
+- Not Found (any other address): a friendly page with a link back to the results.
+
+The web app is deployed on Vercel (free plan) from the `apps/web` folder. `apps/web/vercel.json` sends every address to `index.html`, so links like `/about` also work when the page is opened or reloaded directly. The API only allows browsers to read it from the live site and from `http://localhost:5173` (CORS allow-list in `apps/api/src/app.ts`).
 
 Run it on your own computer (two terminals, both started in the project folder):
 
