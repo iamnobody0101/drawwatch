@@ -1,12 +1,18 @@
 # DrawWatch
 
-DrawWatch is a responsive web app that shows lottery draw results and number-frequency charts using sample data.
+DrawWatch is a responsive web app that shows lottery draw results from a REST API, using made-up sample data. Number-frequency charts are planned (see Status and roadmap).
 
 > All data is made up for practice. DrawWatch is not affiliated with OLG and has no gambling features.
 
-## Status
+## Status and roadmap
 
 Learning project, built in phases. Phases 0 to 6 are done (setup, web basics, Figma design, monorepo and data, REST API, component library, web pages and deploy). The web app is live on Vercel and the API is live on Render.
+
+Not built yet:
+
+- Phase 7: number-frequency charts (the API route `/api/v1/stats/frequency` already exists)
+- Phase 8: Playwright end-to-end tests in several browsers and automatic accessibility checks on the pages
+- Phase 9: polish
 
 - Live web app: https://drawwatch.vercel.app
 - Live API: https://drawwatch-api.onrender.com
@@ -53,12 +59,26 @@ Try these in a browser:
 
 The free plan goes to sleep after 15 minutes without visitors. The first request after that can take about one minute while the server wakes up. All data is made up.
 
-## Plan
+## Run it yourself
 
-- React and TypeScript front end
-- Node and Express API
-- Storybook component library
-- Automated tests and checks on every pull request
+You need Node 26 (the file `.node-version` says which one) and Git.
+
+```
+git clone https://github.com/iamnobody0101/drawwatch.git
+cd drawwatch
+npm ci
+```
+
+Checks (the same ones the CI runs on every pull request):
+
+```
+npm run format:check
+npm run lint
+npm run typecheck --workspaces --if-present
+npm test
+```
+
+The project is a monorepo (one repository, several packages): `apps/api` (Express API), `apps/web` (React app) and `packages/shared` (types, Zod rules and helpers used by both).
 
 ## Learning notes
 
