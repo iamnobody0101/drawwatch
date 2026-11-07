@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { parseGameId, parsePage } from "./filters.ts";
 
-describe("pargesGameId", () => {
+describe("parseGameId", () => {
   it("accepts a known game id", () => {
     expect(parseGameId("lotto-max")).toBe("lotto-max");
   });
@@ -20,7 +20,7 @@ describe("parsePage", () => {
     expect(parsePage("12")).toBe(12);
   });
 
-  it("false back to page 1 for anything else", () => {
+  it("falls back to page 1 for anything else", () => {
     expect(parsePage(null)).toBe(1);
     expect(parsePage("")).toBe(1);
     expect(parsePage("0")).toBe(1);
