@@ -14,3 +14,9 @@ export function parseGameId(value: string | null): GameId | undefined {
   }
   return undefined;
 }
+
+// Turns text from the address bar into a page number. Anything that is not a whole number of 1 or more becomes 1.
+export function parsePage(value: string | null): number {
+  const page = Number(value);
+  return Number.isSafeInteger(page) && page >= 1 ? page : 1;
+}
