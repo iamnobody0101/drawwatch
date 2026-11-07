@@ -78,7 +78,10 @@ describe("ResultsPage", () => {
     const user = userEvent.setup();
     renderPage();
     await screen.findAllByRole("article");
-    expect(screen.queryByRole("button", { name: "Previous" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Previous" })).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
 
     await user.click(screen.getByRole("button", { name: "Next" }));
     expect(await screen.findByText("Page 2 of 3")).toBeInTheDocument();
