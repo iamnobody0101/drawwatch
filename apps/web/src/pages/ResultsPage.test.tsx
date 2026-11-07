@@ -105,6 +105,17 @@ describe("ResultsPage", () => {
     expect(await screen.findByText("No draws found")).toBeInTheDocument();
   });
 
+  it("shows a clear message when the page number is too high, and goes back to page 1", async () => {
+    const user = userEvent.setup();
+    renderPage("/?page=999");
+    expect(await screen.findByText("This page does not exist.")).toBeInTheDocument();
+    expect(screen.queryByText("No draws found")).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Go to page 1" }));
+    expect(await screen.findAllByRole("article")).toHaveLength(2);
+    expect(screen.getByText("Page 1 of 3")).toBeInTheDocument();
+  });
+
   it("shows an error with a Try again button that loads the draws", async () => {
     const user = userEvent.setup();
     server.use(
