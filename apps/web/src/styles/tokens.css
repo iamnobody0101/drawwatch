@@ -29,4 +29,9 @@
 
   /* Text */
   --font-sans: system-ui, "Segoe UI", Roboto, sans-serif;
+
+  /* Chart colours (contrast on white: hot 6.7:1, other 4.8:1, cold lines 7.6:1) */
+  --color-chart-hot: #1d4ed8;
+  --color-chart-other: #64748b;
+  --color-chart-cold: #475569;
 }
