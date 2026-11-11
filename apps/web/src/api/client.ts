@@ -1,4 +1,5 @@
-import type { Draw, Game, GameId } from "@drawwatch/shared";
+import { frequencyResultSchema } from "@drawwatch/shared";
+import type { Draw, FrequencyQuery, FrequencyResult, Game, GameId } from "@drawwatch/shared";
 
 const API_URL: string = import.meta.env.VITE_API_URL ?? "https://drawwatch-api.onrender.com";
 
@@ -57,6 +58,18 @@ export function fetchDraws(query: DrawQuery = {}, signal?: AbortSignal): Promise
 
 export function fetchDraw(id: string, signal?: AbortSignal): Promise<Draw> {
   return getJson<Draw>(`/draws/${encodeURIComponent(id)}`, {}, signal);
+}
+
+export async function fetchFrequency(
+  query: FrequencyQuery,
+  signal?: AbortSignal,
+): Promise<FrequencyResult> {
+  const body = await getJson<unknown>("/stats/frequency", query, signal);
+  const result = frequencyResultSchema.safeParse(body);
+  if (!result.success) {
+    throw new Error("The server sent frequency data in a shape we do not know.");
+  }
+  return result.data;
 }
 
 export function fetchHealth(signal?: AbortSignal): Promise<{ status: string }> {

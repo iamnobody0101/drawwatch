@@ -1,5 +1,13 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { ApiError, fetchDraw, fetchDraws, fetchGames, fetchHealth } from "./client.ts";
+import type { FrequencyQuery } from "@drawwatch/shared";
+import {
+  ApiError,
+  fetchDraw,
+  fetchDraws,
+  fetchFrequency,
+  fetchGames,
+  fetchHealth,
+} from "./client.ts";
 import type { DrawQuery } from "./client.ts";
 
 export function useGames() {
@@ -25,6 +33,15 @@ export function useDraw(id: string) {
     // A 404 means "this draw does not exist". Asking again will not help.
     retry: (failureCount, error) =>
       !(error instanceof ApiError && error.status === 404) && failureCount < 3,
+  });
+}
+
+export function useFrequency(query: FrequencyQuery) {
+  return useQuery({
+    queryKey: ["frequency", query],
+    queryFn: ({ signal }) => fetchFrequency(query, signal),
+    // The sample data never changes, so a result stays fresh for 5 minutes.
+    staleTime: 5 * 60 * 1000,
   });
 }
 
