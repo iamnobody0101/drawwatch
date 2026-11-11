@@ -1,4 +1,5 @@
 import { http, HttpResponse } from "msw";
+import { calculateFrequency } from "@drawwatch/shared";
 import type { Draw, Game } from "@drawwatch/shared";
 
 export const games: Game[] = [
@@ -45,5 +46,21 @@ export const handlers = [
       return HttpResponse.json({ title: "Draw not found", status: 404 }, { status: 404 });
     }
     return HttpResponse.json(draw);
+  }),
+  http.get("*/api/v1/stats/frequency", ({ request }) => {
+    const params = new URL(request.url).searchParams;
+    const game = games.find((item) => item.id === params.get("gameId"));
+    if (!game) {
+      return HttpResponse.json({ title: "Invalid query parameters", status: 400 }, { status: 400 });
+    }
+    const from = params.get("from");
+    const to = params.get("to");
+    const matches = draws.filter(
+      (draw) =>
+        draw.gameId === game.id &&
+        (from === null || draw.date >= from) &&
+        (to === null || draw.date <= to),
+    );
+    return HttpResponse.json({ gameId: game.id, ...calculateFrequency(matches, game.maxNumber) });
   }),
 ];
