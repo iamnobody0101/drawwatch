@@ -28,4 +28,12 @@ describe("GameSelect", () => {
     await user.selectOptions(screen.getByRole("combobox", { name: "Game" }), "Lotto Max");
     expect(onChange).toHaveBeenCalledWith("lotto-max");
   });
+
+  it("can hide the All games choice", () => {
+    render(<GameSelect games={games} value="lotto-649" onChange={vi.fn()} allowAll={false} />);
+    expect(screen.getAllByRole("option").map((option) => option.textContent)).toEqual([
+      "Lotto 6/49",
+      "Lotto Max",
+    ]);
+  });
 });

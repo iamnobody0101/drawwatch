@@ -26,3 +26,7 @@ export const AllGames: Story = {};
 export const GameSelected: Story = {
   args: { value: "lotto-max" },
 };
+
+export const WithoutAllGames: Story = {
+  args: { value: "lotto-649", allowAll: false },
+};
