@@ -25,3 +25,10 @@ The design shows three links in one row. This fits at 393px, but not if more pag
 ## Finding 6: Desktop layout has wide empty space
 
 The desktop screens keep a centred 608px column. This is easy to build, but the chart could use more width. Fix: let the chart card grow to 800px on large screens.
+
+## Update after Phase 7 (2026-11-11)
+
+- Finding 1: done. All chart text is at least 14px, and the axis numbers use #475569 on white (7.6:1).
+- Finding 2: done. Hot bars say "Hot", cold bars are striped and say "Cold", the legend uses words, and there is a "Show as table" button. The Figma legend ("Blue = hot, grey = cold") used colour only; the built chart does not.
+- Finding 5: the menu now has three links (Results, Stats, About). At 320px they move under the name with `flex-wrap`, so no menu button is needed yet.
+- Finding 6: not done yet. The chart card still uses the 640px page column.
