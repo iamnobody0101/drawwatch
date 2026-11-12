@@ -116,3 +116,18 @@
 - Every pull request gets a Vercel preview address. Previews cannot load data, because their address is not in the API's CORS allow-list.
 - CORS allow-list: the `cors` package gets an array of allowed origins. It repeats back the caller's origin only if it is in the list, and adds `Vary: Origin`. Other websites get no header, so their browsers block the answer. CORS is enforced by browsers only; `curl` can still read the API, which is fine for public data.
 - Order of work that avoided a broken site: deploy the web app first, then restrict CORS, and check the live site after both.
+
+## Phase 7: Charts and Stats page
+
+- SVG draws shapes with code: `rect` for bars, `line` for grid lines, `text` for labels, `g` to group them. React can draw SVG like any other element, so a chart library is not needed for simple bars.
+- A scale turns a number into a length in pixels. The axis must start at 0, or short bars look much smaller than they are. `niceMax` rounds the top of the axis up to 1, 2 or 5 times a power of 10, so the axis numbers are easy to read.
+- `ResizeObserver` tells the code when an element changes size. A React 19 callback ref can return a cleanup function, so the observer stops when the chart leaves the page.
+- Roving tabindex: only one bar has `tabIndex={0}`, the rest have `-1`. The chart is one Tab stop, and the arrow keys move focus inside it. Each bar has `role="img"` and an `aria-label`, so a screen reader reads "Number 3, Times drawn: 73, Hot".
+- Colour must never be the only signal. Hot bars are blue and say "Hot", cold bars are striped and say "Cold", and the legend uses words. The table view shows the same numbers as text, and a test checks that the table and the chart agree.
+- axe marks text inside `role="img"` as "inconclusive" for contrast, because it cannot measure it. I checked those colours by calculation instead (for example 7.6:1 and 17.9:1 on white).
+- Native date inputs (`type="date"`) give a calendar for free. Their value is text like `2026-01-31`, which sorts like a date, so `from > to` works. `parseDate` checks that the date in the address is real (`2026-02-30` is not).
+- `useQuery` has an `enabled` switch. When From is after To, the page shows a message and does not ask the server. React hooks must always be called, so a switch is the right tool, not an `if` around the hook.
+- The API returns hot and cold lists even for 0 draws, so the page checks `totalDraws === 0` for the empty message.
+- `fireEvent.change` sets a date box directly in a test, and `within(...)` searches inside one part of the page.
+- Tests cannot see layout. A real browser at 320px showed that the menu was too wide; `flex-wrap: wrap` lets it move to a second line.
+- Draws are independent. The page says so, and it uses no betting, odds or luck words.
