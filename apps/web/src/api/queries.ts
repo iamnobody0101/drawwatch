@@ -36,10 +36,11 @@ export function useDraw(id: string) {
   });
 }
 
-export function useFrequency(query: FrequencyQuery) {
+export function useFrequency(query: FrequencyQuery, enabled = true) {
   return useQuery({
     queryKey: ["frequency", query],
     queryFn: ({ signal }) => fetchFrequency(query, signal),
+    enabled, // false means "do not ask the server now"
     // The sample data never changes, so a result stays fresh for 5 minutes.
     staleTime: 5 * 60 * 1000,
   });

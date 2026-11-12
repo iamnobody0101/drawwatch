@@ -47,4 +47,22 @@ describe("useFrequency", () => {
 
     await waitFor(() => expect(result.current.isError).toBe(true));
   });
+
+  it("does not ask the server when it is switched off", async () => {
+    let asked = false;
+    server.use(
+      http.get("*/api/v1/stats/frequency", () => {
+        asked = true;
+        return HttpResponse.json({}, { status: 500 });
+      }),
+    );
+
+    const { result } = renderHook(() => useFrequency({ gameId: "lotto-649" }, false), {
+      wrapper: createWrapper(),
+    });
+
+    expect(result.current.fetchStatus).toBe("idle");
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(asked).toBe(false);
+  });
 });
