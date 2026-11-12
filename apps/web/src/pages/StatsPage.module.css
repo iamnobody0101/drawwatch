@@ -1,0 +1,90 @@
+.title {
+  margin: 0 0 var(--space-4);
+  font-size: 1.75rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-6);
+}
+
+.dateField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.dateLabel {
+  font-weight: 600;
+}
+
+.dateInput {
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.dateInput:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.backwards {
+  margin: 0 0 var(--space-4);
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.section {
+  margin: var(--space-6) 0 0;
+}
+
+.sectionTitle {
+  margin: 0 0 var(--space-2);
+  font-size: 1.25rem;
+}
+
+.note {
+  margin: var(--space-6) 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.numberList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.columns {
+  display: grid;
+  gap: var(--space-6);
+}
+
+@media (min-width: 40rem) {
+  .columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.numberItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.count {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
