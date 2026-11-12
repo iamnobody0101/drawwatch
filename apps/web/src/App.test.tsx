@@ -34,6 +34,11 @@ describe("App routes", () => {
     expect(await heading("About DrawWatch")).toBeInTheDocument();
   });
 
+  it("shows the Stats page at /stats", async () => {
+    renderApp("/stats");
+    expect(await heading("Stats")).toBeInTheDocument();
+  });
+
   it("shows the Not Found page for an unknown address", async () => {
     renderApp("/banana");
     expect(await heading("Page not found")).toBeInTheDocument();
@@ -46,6 +51,10 @@ describe("App routes", () => {
     await user.click(screen.getByRole("link", { name: "About" }));
     expect(await heading("About DrawWatch")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "About" })).toHaveAttribute("aria-current", "page");
+
+    await user.click(screen.getByRole("link", { name: "Stats" }));
+    expect(await heading("Stats")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Stats" })).toHaveAttribute("aria-current", "page");
 
     await user.click(screen.getByRole("link", { name: "Results" }));
     expect(await heading("Results")).toBeInTheDocument();

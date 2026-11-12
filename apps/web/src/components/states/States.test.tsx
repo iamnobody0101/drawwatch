@@ -12,6 +12,11 @@ describe("LoadingState", () => {
     render(<LoadingState />);
     expect(screen.getByRole("status")).toHaveTextContent("Loading draws...");
   });
+
+  it("can say what is loading", () => {
+    render(<LoadingState subject="statistics" />);
+    expect(screen.getByRole("status")).toHaveTextContent("Loading statistics...");
+  });
 });
 
 describe("EmptyState", () => {
@@ -43,6 +48,13 @@ describe("ErrorState", () => {
     render(<ErrorState onRetry={onRetry} />);
     await user.click(screen.getByRole("button", { name: "Try again" }));
     expect(onRetry).toHaveBeenCalledTimes(1);
+  });
+
+  it("can say what could not be loaded", () => {
+    render(<ErrorState onRetry={() => {}} subject="statistics" />);
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "Sorry, the statistics could not be loaded.",
+    );
   });
 });
 

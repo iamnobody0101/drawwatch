@@ -1,5 +1,9 @@
 import { StatusMessage } from "../StatusMessage/StatusMessage";
 
-export function LoadingState() {
-  return <StatusMessage title="Loading draws..." message="Please wait a moment." />;
+type LoadingStateProps = {
+  subject?: string; // what is loading, for example "statistics"
+};
+
+export function LoadingState({ subject = "draws" }: LoadingStateProps) {
+  return <StatusMessage title={`Loading ${subject}...`} message="Please wait a moment." />;
 }

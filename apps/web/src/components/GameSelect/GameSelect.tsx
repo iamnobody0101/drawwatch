@@ -5,9 +5,10 @@ type GameSelectProps = {
   games: Game[];
   value: string;
   onChange: (value: string) => void;
+  allowAll?: boolean; // show the "All games" choice (default: yes)
 };
 
-export function GameSelect({ games, value, onChange }: GameSelectProps) {
+export function GameSelect({ games, value, onChange, allowAll = true }: GameSelectProps) {
   return (
     <div className={styles.field}>
       <label className={styles.label} htmlFor="game-select">
@@ -19,7 +20,7 @@ export function GameSelect({ games, value, onChange }: GameSelectProps) {
         value={value}
         onChange={(event) => onChange(event.target.value)}
       >
-        <option value="">All games</option>
+        {allowAll ? <option value="">All games</option> : null}
         {games.map((game) => (
           <option key={game.id} value={game.id}>
             {game.name}
