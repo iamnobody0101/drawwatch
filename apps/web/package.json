@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "typecheck": "tsc -b",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@drawwatch/shared": "^0.0.0",
@@ -19,6 +20,8 @@
     "react-router": "^8.5.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.0",
     "@storybook/addon-a11y": "^10.6.6",
     "@storybook/addon-docs": "^10.6.6",
     "@storybook/react-vite": "^10.6.6",

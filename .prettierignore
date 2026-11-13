@@ -3,3 +3,5 @@ coverage
 package-lock.json
 apps/api/data/draws.json
 storybook-static
+playwright-report
+test-results
