@@ -10,7 +10,13 @@ export const test = base.extend<{ accessibilityScan: void }>({
       if (testInfo.status !== "passed") {
         return;
       }
-      const results = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
+      const axe = new AxeBuilder({ page }).withTags(WCAG_TAGS);
+      if (testInfo.project.name === "firefox") {
+        // In Firefox on CI the page crashed while axe checked the colour contrast of the chart.
+        // The contrast is still checked in the other browsers.
+        axe.disableRules(["color-contrast"]);
+      }
+      const results = await axe.analyze();
       for (const item of results.incomplete) {
         testInfo.annotations.push({
           type: "axe incomplete",
