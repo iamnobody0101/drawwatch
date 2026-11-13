@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures.ts";
 
 test("a visitor opens a draw and goes back with the game filter kept", async ({ page }) => {
   await page.goto("/");
